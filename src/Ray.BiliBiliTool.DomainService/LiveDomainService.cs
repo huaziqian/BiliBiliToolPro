@@ -623,13 +623,7 @@ namespace Ray.BiliBiliTool.DomainService
 					continue;
 				
 				var roomId = spaceInfo.Data.Live_room.Roomid;
-                if (liveRoomInfo.Code != 0)
-                {
-                    _logger.LogError("【获取直播间信息】失败");
-                    _logger.LogError("【原因】{message}", liveRoomInfo.Message);
-                    continue;
-                }
-
+    
                 infoList.Add(new FansMedalInfoDto(roomId, medal, liveRoomInfo.Data));
             }
 
