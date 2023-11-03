@@ -613,15 +613,16 @@ namespace Ray.BiliBiliTool.DomainService
                     _logger.LogError("【原因】{message}", spaceInfo.Message);
                     continue;
                 }
-				
-				// 用以排除有牌子无直播间的up主
+                
+                var roomId = spaceInfo.Data.Live_room.Roomid;
+
+                // 获取直播间详细信息
+                var liveRoomInfo = await _liveApi.GetLiveRoomInfo(roomId);
+                				// 用以排除有牌子无直播间的up主
 				if (spaceInfo.Data.Live_room is null)
 					continue;
 				
 				var roomId = spaceInfo.Data.Live_room.Roomid;
-
-                // 获取直播间详细信息
-                var liveRoomInfo = await _liveApi.GetLiveRoomInfo(roomId);
                 if (liveRoomInfo.Code != 0)
                 {
                     _logger.LogError("【获取直播间信息】失败");
